@@ -27,6 +27,12 @@ provider:
   region: ap-northeast-1
   profile: umihico
 
+custom:
+  scheduleEnabled:
+    prod: true
+    dev: false
+    local: false
+
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -57,8 +63,12 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  hourly:
+    handler: hourly.hourly
+    events:
+      - schedule:
+          rate: rate(1 hour)
+          enabled: ${self:custom.scheduleEnabled.${opt:stage, self:provider.stage}}
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
