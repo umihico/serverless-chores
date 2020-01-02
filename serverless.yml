@@ -33,6 +33,16 @@ custom:
     dev: false
     local: false
 
+# AWS Lambda Layers
+layers:
+  requests:
+    path: layers/requests
+    name: ${self:service}-requests
+    compatibleRuntimes:
+      - python3.8
+    allowedAccounts:
+      - '*'
+
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -65,6 +75,8 @@ custom:
 functions:
   hourly:
     handler: hourly.hourly
+    layers:
+      - {Ref: RequestsLambdaLayer}
     events:
       - schedule:
           rate: rate(1 hour)
