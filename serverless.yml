@@ -38,15 +38,6 @@ custom:
     dev: false
     local: false
 
-# AWS Lambda Layers
-layers:
-  requests:
-    path: layers/requests
-    name: ${self:service}-requests
-    compatibleRuntimes:
-      - python3.8
-    allowedAccounts:
-      - '*'
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -81,7 +72,7 @@ functions:
   hourly:
     handler: hourly.hourly
     layers:
-      - {Ref: RequestsLambdaLayer}
+      - arn:aws:lambda:ap-northeast-1:243491639660:layer:requests:2
     environment:
       STAGE: ${opt:stage, self:provider.stage}
       SLACK_TOKEN: ${ssm:SLACK_TOKEN}
