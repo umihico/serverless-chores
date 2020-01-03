@@ -17,7 +17,6 @@ def healthcheck():
         except Exception as e:
             result='failed'
             slack.error('Healthcheck Failed: '+url+"\n"+traceback.format_exc())
-        slack.log('healthcheck', result, url)
         results[url]=result
     return results
 

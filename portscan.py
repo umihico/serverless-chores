@@ -17,7 +17,6 @@ def portscan():
         results[port]="open" if result_int==0 else 'close'
         if results[port]!=ideal[port]:
             slack.error('port', port, 'is', results[port].upper()+"!!", socket.errno.errorcode[result_int]+" "+result_int if result_int!=0 else "")
-    slack.log(results)
     return results
 
 def test_portscan():
