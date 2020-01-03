@@ -1,11 +1,13 @@
 import json
 from healthcheck import healthcheck
+from portscan import portscan
 
 def hourly(event, context):
     body = {
     }
 
     body['healthcheck']=healthcheck()
+    body['portscan']=portscan()
 
     response = {
         "statusCode": 200,
