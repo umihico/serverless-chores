@@ -83,6 +83,20 @@ functions:
       - schedule:
           rate: rate(1 hour)
           enabled: ${self:custom.scheduleEnabled.${opt:stage, self:provider.stage}}
+  minutely:
+    handler: minutely.minutely
+    layers:
+      - arn:aws:lambda:ap-northeast-1:243491639660:layer:requests:2
+    environment:
+      STAGE: ${opt:stage, self:provider.stage}
+      SLACK_TOKEN: ${ssm:SLACK_TOKEN}
+      SLACK_ID: ${ssm:SLACK_ID}
+      SLACK_ID_DEBUG: ${ssm:SLACK_ID_DEBUG}
+      SLACK_ID_ERROR: ${ssm:SLACK_ID_ERROR}
+    events:
+      - schedule:
+          rate: rate(1 minute)
+          enabled: ${self:custom.scheduleEnabled.${opt:stage, self:provider.stage}}
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
