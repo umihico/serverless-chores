@@ -14,3 +14,9 @@ def minutely(event, context):
     }
 
     return response
+
+def test_minutely():
+    assert minutely(None, None)['statusCode']==200
+
+if __name__ == '__main__':
+    test_minutely()

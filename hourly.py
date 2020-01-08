@@ -18,3 +18,9 @@ def hourly(event, context):
     }
 
     return response
+
+def test_hourly():
+    assert hourly(None, None)['statusCode']==200
+
+if __name__ == '__main__':
+    test_hourly()

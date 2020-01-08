@@ -21,7 +21,7 @@ def healthcheck():
     return results
 
 def test_healthcheck():
-    return healthcheck()
+    assert all([v=="success" for v in healthcheck().values()])
 
 if __name__ == '__main__':
     test_healthcheck()
