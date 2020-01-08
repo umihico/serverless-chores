@@ -1,5 +1,6 @@
-STAGE: ${opt:stage, self:provider.stage}
+STAGE: local
 SLACK_TOKEN: ${ssm:SLACK_TOKEN}
 SLACK_ID: ${ssm:SLACK_ID_DEBUG}
 SLACK_ID_DEBUG: ${ssm:SLACK_ID_DEBUG}
 SLACK_ID_ERROR: ${ssm:SLACK_ID_DEBUG}
+CHROME_EXECUTABLE_PATH: "/usr/local/bin/chromedriver"
