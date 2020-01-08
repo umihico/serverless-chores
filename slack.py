@@ -1,12 +1,11 @@
 import boto3
-import param
 import requests
 import io
 import os
+import env
 
 def post_message(slack_id, text):
-    slack_id=slack_id if os.getenv('STAGE', 'local')=='prod' else param.get('SLACK_ID_DEBUG') # use muted debug channel when not prod
-    slack_token = param.get('SLACK_TOKEN')
+    slack_token = os.getenv('SLACK_TOKEN')
     return requests.post('https://slack.com/api/chat.postMessage', {
         'token': slack_token,
         'channel': slack_id,
@@ -17,7 +16,7 @@ def post_message(slack_id, text):
     }).json()
 
 def test_post_message():
-    slack_id=param.get('SLACK_ID')
+    slack_id=os.getenv('SLACK_ID')
     text="this is post_message test."
     json=post_message(slack_id, text)
     print(json)
@@ -28,7 +27,7 @@ def log(*arg, **kw):
     '''
     print normaly on cloudwatch and send the same to my slack #log-debug
     '''
-    slack_id=kw.get('slack_id', param.get('SLACK_ID_DEBUG'))
+    slack_id=kw.get('slack_id', os.getenv('SLACK_ID_DEBUG'))
     if 'slack_id' in kw:
         del kw['slack_id']
     print(*arg, **kw)
@@ -41,7 +40,7 @@ def test_log():
     assert log('this is log test')['ok'] is True
 
 def error(*arg, **kw):
-    kw['slack_id']=param.get('SLACK_ID_ERROR')
+    kw['slack_id']=os.getenv('SLACK_ID_ERROR')
     return log(*arg, **kw)
 
 def test_error():
