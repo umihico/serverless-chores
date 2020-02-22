@@ -13,7 +13,7 @@ layer:
 	aws lambda publish-layer-version --layer-name ${package} --zip-file fileb://layer.zip --compatible-runtimes python3.8
 	rm -rf layer.zip python
 pytest:
-	python -m py_compile *.py
+	python3 -m py_compile *.py
 	pytest *.py
 invoke:
 	sls invoke -f hourly
