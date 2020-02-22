@@ -10,7 +10,7 @@ def hourly(event, context):
     }
 
     body['healthcheck'] = healthcheck()
-    body['portscan'] = portscan()
+    # body['portscan'] = portscan()
 
     slack.log(pprint.pformat(body))
     response = {
