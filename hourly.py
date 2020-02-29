@@ -3,6 +3,7 @@ import slack
 from healthcheck import healthcheck
 from portscan import portscan
 import pprint
+import requirements
 
 
 def hourly(event, context):

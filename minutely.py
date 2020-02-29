@@ -1,5 +1,6 @@
 import json
 from healthcheck import healthcheck
+import requirements
 
 
 def minutely(event, context):

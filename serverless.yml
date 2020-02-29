@@ -38,7 +38,11 @@ custom:
     prod: true
     dev: false
     local: false
+  pythonRequirements:
+    dockerizePip: true
 
+plugins:
+  - serverless-python-requirements
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -68,20 +72,12 @@ custom:
 functions:
   hourly:
     handler: hourly.hourly
-    layers:
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:pyyaml:1
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:requests:2
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:pymysql:1
     events:
       - schedule:
           rate: rate(1 hour)
           enabled: ${self:custom.scheduleEnabled.${opt:stage, self:provider.stage}}
   minutely:
     handler: minutely.minutely
-    layers:
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:pyyaml:1
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:requests:2
-      - arn:aws:lambda:ap-northeast-1:243491639660:layer:pymysql:1
     events:
       - schedule:
           rate: rate(1 minute)
